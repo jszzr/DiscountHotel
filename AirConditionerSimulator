@@ -1,0 +1,80 @@
+class AirConditionerSimulator:
+    def __init__(self):
+        self.temperature = 26  # 初始温度为26度
+        self.mode = 5  # 初始模式为常温
+        self.running = False
+
+    def start(self):
+        while True:
+            if not self.running:
+                print("空调待机模式")
+                print("1. 设置温度")
+                print("2. 设置冷热模式")
+                print("9. 启动空调")
+                print("0. 退出")
+                choice = input("请输入选项: ")
+
+                if choice == '1':
+                    self.set_temperature()
+                elif choice == '2':
+                    self.set_mode()
+                elif choice == '9':
+                    self.start_air_conditioner()
+                elif choice == '0':
+                    break
+                else:
+                    print("无效的选项，请重新输入")
+            else:
+                print(f"空调运行中 - 温度: {self.temperature}度, 模式: {'热风' if self.mode == 8 else '冷风' if self.mode == 2 else '常温'}")
+                print("0. 暂停空调")
+                choice = input("请输入选项: ")
+
+                if choice == '0':
+                    self.pause_air_conditioner()
+
+    def set_temperature(self):
+        while True:
+            print(f"当前温度: {self.temperature}度")
+            print("1. 上升温度")
+            print("2. 下降温度")
+            print("0. 保存温度并返回待机模式")
+            choice = input("请输入选项: ")
+
+            if choice == '1':
+                self.temperature += 1
+            elif choice == '2':
+                self.temperature -= 1
+            elif choice == '0':
+                break
+            else:
+                print("无效的选项，请重新输入")
+
+    def set_mode(self):
+        while True:
+            print(f"当前模式: {'热风' if self.mode == 8 else '冷风' if self.mode == 2 else '常温'}")
+            print("1. 选择热风")
+            print("2. 选择冷风")
+            print("5. 选择常温")
+            print("0. 保存冷热模式并返回待机模式")
+            choice = input("请输入选项: ")
+
+            if choice == '1':
+                self.mode = 8
+            elif choice == '2':
+                self.mode = 2
+            elif choice == '5':
+                self.mode = 5
+            elif choice == '0':
+                break
+            else:
+                print("无效选项，请重新输入")
+
+    def start_air_conditioner(self):
+        self.running = True
+
+    def pause_air_conditioner(self):
+        self.running = False
+
+if __name__ == "__main__":
+    ac_simulator = AirConditionerSimulator()
+    ac_simulator.start()
